@@ -10,10 +10,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.sun.xml.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 import com.willardy.cursomc.domain.Categoria;
 import com.willardy.cursomc.domain.Cidade;
+import com.willardy.cursomc.domain.Cliente;
+import com.willardy.cursomc.domain.Endereco;
 import com.willardy.cursomc.domain.Estado;
 import com.willardy.cursomc.domain.Produto;
+import com.willardy.cursomc.domain.enums.TipoCliente;
 import com.willardy.cursomc.repositories.CategoriaRepository;
 import com.willardy.cursomc.repositories.CidadeRepository;
+import com.willardy.cursomc.repositories.ClienteRepository;
+import com.willardy.cursomc.repositories.EnderecoRepository;
 import com.willardy.cursomc.repositories.EstadoRepository;
 import com.willardy.cursomc.repositories.ProdutoRepository;
 
@@ -31,6 +36,12 @@ public class CursomcApplication implements CommandLineRunner {
 
 	@Autowired
 	private EstadoRepository estadoRepository;
+	
+	@Autowired
+	private ClienteRepository clienteRepository;
+	
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
@@ -67,6 +78,17 @@ public class CursomcApplication implements CommandLineRunner {
 
 		estadoRepository.saveAll(Arrays.asList(est1, est2));
 		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
+		
+		Cliente cli1 = new Cliente("Willardy Tyrone", "willardy@gmail.com", "123.147.159.10", TipoCliente.PESSOAFISICA);
+		cli1.getTelefones().addAll(Arrays.asList("86 1234-5678", "86 9876-5432"));
+		
+		Endereco e1 = new Endereco("Rua X com a Y", "159-6", "01-1003", "Ininga", "64000-000", cli1, c1);
+		Endereco e2 = new Endereco("Rua Y cruzando a B", "1225", "05-806", "Flores", "32564-000", cli1, c2);
+
+		cli1.getEnderecos().addAll(Arrays.asList(e1,e2));
+		
+		clienteRepository.saveAll(Arrays.asList(cli1));
+		enderecoRepository.saveAll(Arrays.asList(e1,e2));
 	}
 
 }
