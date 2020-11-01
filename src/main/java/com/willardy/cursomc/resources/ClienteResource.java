@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.willardy.cursomc.domain.Categoria;
 import com.willardy.cursomc.domain.Cliente;
 import com.willardy.cursomc.dto.ClienteDTO;
 import com.willardy.cursomc.dto.ClienteNewDTO;
