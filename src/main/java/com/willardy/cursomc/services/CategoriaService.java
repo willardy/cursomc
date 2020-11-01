@@ -11,8 +11,10 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.willardy.cursomc.domain.Categoria;
+import com.willardy.cursomc.domain.Categoria;
 import com.willardy.cursomc.dto.CategoriaDTO;
 import com.willardy.cursomc.repositories.CategoriaRepository;
+import com.willardy.cursomc.services.exceptions.DataIntegrityException;
 import com.willardy.cursomc.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -28,22 +30,23 @@ public class CategoriaService {
 				"Objeto nao encontrado! Id:" + id + ", Tipo: " + Categoria.class.getName()));
 	}
 
-	public Categoria insert(Categoria categoria) {
-		categoria.setId(null);
-		return repo.save(categoria);
+	public Categoria insert(Categoria obj) {
+		obj.setId(null);
+		return repo.save(obj);
 	}
 
-	public Categoria update(Categoria categoria) {
-		find(categoria.getId());
-		return repo.save(categoria);
+	public Categoria update(Categoria obj) {
+		Categoria newObj = find(obj.getId());
+		updateData(newObj, obj);
+		return repo.save(newObj);
 	}
 
 	public void delete(Integer id) {
 		find(id);
 		try {
 			repo.deleteById(id);
-		}catch (DataIntegrityViolationException e) {
-			throw new com.willardy.cursomc.services.exceptions.DataIntegrityViolationException("Não é possivel deletar categoria que possuia produtos.");
+		}catch (DataIntegrityViolationException  e) {
+			throw new DataIntegrityException("Não é possivel deletar categoria que possuia produtos.");
 		}
 	}
 	
@@ -56,8 +59,12 @@ public class CategoriaService {
 		return repo.findAll(pageRequest);
 	}
 	
-	public Categoria fromDTO(CategoriaDTO categoriaDTO) {
-		return new Categoria(categoriaDTO.getId(), categoriaDTO.getNome());
+	public Categoria fromDTO(CategoriaDTO objDTO) {
+		return new Categoria(objDTO.getId(), objDTO.getNome());
+	}
+	
+	private void updateData(Categoria newObj, Categoria obj) {
+		newObj.setNome(obj.getNome());
 	}
 
 }
