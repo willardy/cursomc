@@ -2,22 +2,45 @@ package com.willardy.cursomc.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
+import com.willardy.cursomc.services.validation.ClienteInsert;
+
+@ClienteInsert
 public class ClienteNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@NotEmpty(message = "O preenchimento do campo é obrigatorio")
+	@Length(min = 5, max = 80, message = "O campo deve conter entre 5 e 80 catacteres")
 	private String nome;
+	
+	@NotEmpty(message = "O preenchimento do campo é obrigatorio")
+	@Email(message = "O email é inválido")
 	private String email;
+	
+	@NotEmpty(message = "O preenchimento do campo é obrigatorio")
 	private String cpfOuCnpj;
+	
 	private Integer tipo;
 
+	@NotEmpty(message = "O preenchimento do campo é obrigatorio")
 	private String logradouro;
+	
+	@NotEmpty(message = "O preenchimento do campo é obrigatorio")
 	private String numero;
+	
 	private String complemento;
 	private String bairro;
+	
+	@NotEmpty(message = "O preenchimento do campo é obrigatorio")
 	private String cep;
 
 	private Integer cidadeId;
 
+	@NotEmpty(message = "O preenchimento do campo é obrigatorio")
 	private String telefone1;
 	private String telefone2;
 	private String telefone3;
