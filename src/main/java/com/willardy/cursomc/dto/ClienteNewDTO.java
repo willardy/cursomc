@@ -16,25 +16,25 @@ public class ClienteNewDTO implements Serializable {
 	@NotEmpty(message = "O preenchimento do campo é obrigatorio")
 	@Length(min = 5, max = 80, message = "O campo deve conter entre 5 e 80 catacteres")
 	private String nome;
-	
+
 	@NotEmpty(message = "O preenchimento do campo é obrigatorio")
 	@Email(message = "O email é inválido")
 	private String email;
-	
+
 	@NotEmpty(message = "O preenchimento do campo é obrigatorio")
 	private String cpfOuCnpj;
-	
+
 	private Integer tipo;
 
 	@NotEmpty(message = "O preenchimento do campo é obrigatorio")
 	private String logradouro;
-	
+
 	@NotEmpty(message = "O preenchimento do campo é obrigatorio")
 	private String numero;
-	
+
 	private String complemento;
 	private String bairro;
-	
+
 	@NotEmpty(message = "O preenchimento do campo é obrigatorio")
 	private String cep;
 
