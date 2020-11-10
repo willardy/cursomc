@@ -14,12 +14,12 @@ import com.willardy.cursomc.services.PedidoService;
 public class PedidoResource {
 	
 	@Autowired
-	private PedidoService pedidoService;
+	private PedidoService service;
 
 	@RequestMapping(value = "{id}")
 	public ResponseEntity<Pedido> find(@PathVariable Integer id){
-		Pedido pedido = pedidoService.find(id);
-		return ResponseEntity.ok().body(pedido);
+		Pedido obj = service.find(id);
+		return ResponseEntity.ok().body(obj);
 	}
 	
 	
