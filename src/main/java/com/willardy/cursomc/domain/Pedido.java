@@ -66,6 +66,14 @@ public class Pedido implements Serializable {
 
 		return pedidos;
 	}
+	
+	public double getSomaTotal() {
+		double soma = 0.0;
+		for(ItemPedido ip: itens){
+			soma += ip.getSubTotal();
+		}
+		return soma;
+	}
 
 	public Date getInstance() {
 		return instance;
